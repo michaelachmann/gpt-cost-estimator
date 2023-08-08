@@ -4,10 +4,13 @@ The `CostEstimator` class offers a convenient way to estimate the cost of using 
 
 ## 🌟 Features:
 
+![Screenshot of an estimation](images/screenshot.png)
+
 - **tqdm Integration**: Seamlessly integrates into `tqdm` powered loops and displays the cost of each API call and the accumulated total cost.
 - **Model Synonyms**: Easily switch between model versions or names. 🔄
 - **Mock Responses**: Generate fake 🤖 API responses to estimate costs without making actual API requests.
 - **Cost Breakdown**: Display the estimated 💰 cost per request and the accumulated cost.
+
 
 ## 🛠 Usage:
 
