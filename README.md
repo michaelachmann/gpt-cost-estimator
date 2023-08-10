@@ -13,6 +13,7 @@ The `CostEstimator` class offers a convenient way to estimate the cost of using 
 
 
 ## 🛠 Usage:
+The CostEstimator class was designed to be used in Jupyter Notebooks, see the [example notebook](examples/example-notebook.ipynb) for a demonstration. 
 
 1. **Initialization**:
     ```python

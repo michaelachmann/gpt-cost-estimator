@@ -7,7 +7,7 @@ from .utils import num_tokens_from_messages
 class CostEstimator:
     MODEL_SYNONYMS = {
         "gpt-4": "gpt-4-0613",
-        "gpt-3": "gpt-3.5-turbo-0613",
+        "gpt-3-turbo": "gpt-3.5-turbo-0613",
     }
 
     # Source: https://openai.com/pricing
