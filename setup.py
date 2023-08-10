@@ -15,5 +15,5 @@ setup(
     description="A cost estimator for OpenAI API calls in tqdm loops.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/michaelachmann/openai_cost_estimator",
+    url="https://github.com/michaelachmann/gpt-cost-estimator/",
 )
