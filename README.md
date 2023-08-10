@@ -64,7 +64,7 @@ The CostEstimator class was designed to be used in Jupyter Notebooks, see the [e
 
 ## 🔧 Installation:
 
-Install the necessary packages:
+**Install via pip**
 
 ```bash
 pip install gpt-cost-estimator
