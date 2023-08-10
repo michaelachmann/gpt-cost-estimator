@@ -4,7 +4,7 @@ The `CostEstimator` class offers a convenient way to estimate the cost of using 
 
 ## 🌟 Features:
 
-![Screenshot of an estimation](images/screenshot.png)
+![Screenshot of an estimation](https://raw.githubusercontent.com/michaelachmann/gpt-cost-estimator/master/images/screenshot.png)
 
 - **tqdm Integration**: Seamlessly integrates into `tqdm` powered loops and displays the cost of each API call and the accumulated total cost.
 - **Model Synonyms**: Easily switch between model versions or names. 🔄
@@ -13,44 +13,44 @@ The `CostEstimator` class offers a convenient way to estimate the cost of using 
 
 
 ## 🛠 Usage:
-The CostEstimator class was designed to be used in Jupyter Notebooks, see the [example notebook](examples/example-notebook.ipynb) for a demonstration. 
+The CostEstimator class was designed to be used in Jupyter Notebooks, see the [example notebook](https://github.com/michaelachmann/gpt-cost-estimator/blob/master/examples/example_notebook.ipynb) for a demonstration. 
 
-1. **Initialization**:
-    ```python
-    from cost_estimator import CostEstimator
-    estimator = CostEstimator()
-    ```
-
-2. **Decorate your API call function**:
+1. **Decorate your API call function**:
    ```python
-    @estimator()
-    def call_openai_api(model="gpt-3.5-turbo-0613", temperature=0.0, messages=[...], mock=True):
-    # Your API call logic here
-    return openai.ChatCompletion.create(
-                  model=model,
-                  temperature=temperature,
-                  messages=messages,
-    )
-    return response
+   import openai 
+   from gpt_cost_estimator import CostEstimator
+   
+   @CostEstimator()
+   def query_openai(model, messages, **kwargs):
+       args_to_remove = ['mock', 'completion_tokens']
+   
+       for arg in args_to_remove:
+         if arg in kwargs:
+             del kwargs[arg]
+   
+       return openai.ChatCompletion.create(
+           model = model,
+           messages = messages,
+           **kwargs)
     ```
 
-3. **Call the API from within a loop**:
+2. **Call the API from within a loop**:
     ```python
     for message in tqdm(messages):
-        response = call_openai_api(messages=[message], mock=False)
+        response = query_openai(model="gpt-3.5-turbo-0613", messages=[message], mock=False)
    
         # Or if you're mocking the API call:
-        response = call_openai_api(messages=[message], mock=True)     
+        response = query_openai(model="gpt-3.5-turbo-0613", messages=[message], mock=True)     
    
     print() # We need to print a newline to show the total cost
     ```
 
-4. **Reset Total Cost**:
+3. **Reset Total Cost**:
     ```python
     CostEstimator.reset()
     ```
 
-5. **Read Total Cost**:
+4. **Read Total Cost**:
     ```python
     CostEstimator.get_total_cost()
     ```
@@ -67,11 +67,15 @@ The CostEstimator class was designed to be used in Jupyter Notebooks, see the [e
 Install the necessary packages:
 
 ```bash
+pip install gpt-cost-estimator
+```
+
+**Manual Installation**
+
+```bash
 pip install tiktoken openai tqdm lorem_text
 ```
 Clone this repository and import the `CostEstimator` in your script.
-
-**pip package coming soon!** 📦
 
 ## How tqdm is Integrated:
 
