@@ -23,11 +23,11 @@ The `CostEstimator` class offers a convenient way to estimate the cost of using 
 2. **Decorate your API call function**:
    ```python
     @estimator()
-    def call_openai_api(model="gpt-3.5-turbo-0613", messages=[...], ..., mock=True):
+    def call_openai_api(model="gpt-3.5-turbo-0613", temperature=0.0, messages=[...], ..., mock=True):
     # Your API call logic here
     return openai.ChatCompletion.create(
                   model=model,
-                  temperature=0.0,
+                  temperature=temperature,
                   messages=messages,
     )
     return response
