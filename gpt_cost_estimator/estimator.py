@@ -56,7 +56,7 @@ class CostEstimator:
                 total_tokens = input_tokens + output_tokens
             else:
                 response = function(*args, **kwargs)
-                total_tokens = response["usage"]["total_tokens"]
+                total_tokens = response.usage.total_tokens
                 output_tokens = total_tokens - input_tokens
 
             input_cost = input_tokens * self.PRICES[model]['input'] / 1000
