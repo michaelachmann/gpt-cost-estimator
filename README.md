@@ -87,6 +87,9 @@ The progress bar powered by `tqdm` provides instant feedback for every API call.
 - Always test the estimator with your specific use cases to ensure accuracy.
 - The progress bar will appear in your Jupyter notebook or console where the script runs.
 
+## Change Log:
+- 2024-01-26 Updated prices and added additional models.
+
 ## 📜 License:
 
 The MIT License is a permissive open-source license. It allows for reuse of code with minimal restrictions, while requiring only attribution and inclusion of the original license. 🔄🔓💼

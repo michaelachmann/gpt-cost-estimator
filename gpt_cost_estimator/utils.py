@@ -2,7 +2,7 @@ import tiktoken
 
 # This function has been taken from the GPT Cookbook shared by OpenAI under the MIT license:
 # https://github.com/openai/openai-cookbook/blob/main/examples/How_to_format_inputs_to_ChatGPT_models.ipynb
-def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0613"):
+def num_tokens_from_messages(messages, model="gpt-3.5-turbo-1106"):
     """Return the number of tokens used by a list of messages."""
     try:
         encoding = tiktoken.encoding_for_model(model)
@@ -10,12 +10,21 @@ def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0613"):
         print("Warning: model not found. Using cl100k_base encoding.")
         encoding = tiktoken.get_encoding("cl100k_base")
     if model in {
-        "gpt-3.5-turbo-0613",
-        "gpt-3.5-turbo-16k-0613",
-        "gpt-4-0314",
-        "gpt-4-32k-0314",
         "gpt-4-0613",
-        "gpt-4-32k-0613",
+        "gpt-3.5-turbo-0613",
+        "gpt-4-1106-preview",
+        "gpt-4-1106-vision-preview",
+        "gpt-4",
+        "gpt-4-32k",
+        "gpt-3.5-turbo-1106",
+        "gpt-3.5-turbo-instruct",
+        "gpt-3.5-turbo-16k-0613",
+        "whisper-1",
+        "tts-1",
+        "tts-hd-1",
+        "text-embedding-ada-002-v2",
+        "text-davinci:003",
+        "text-ada-001",
         }:
         tokens_per_message = 3
         tokens_per_name = 1
@@ -23,7 +32,7 @@ def num_tokens_from_messages(messages, model="gpt-3.5-turbo-0613"):
         tokens_per_message = 4  # every message follows <|start|>{role/name}\n{content}<|end|>\n
         tokens_per_name = -1  # if there's a name, the role is omitted
     elif "gpt-3.5-turbo" in model:
-        print("Warning: gpt-3.5-turbo may update over time. Returning num tokens assuming gpt-3.5-turbo-0613.")
+        print("Warning: gpt-3.5-turbo may update over time. Returning num tokens assuming gpt-3.5-turbo-1106.")
         return num_tokens_from_messages(messages, model="gpt-3.5-turbo-0613")
     elif "gpt-4" in model:
         print("Warning: gpt-4 may update over time. Returning num tokens assuming gpt-4-0613.")

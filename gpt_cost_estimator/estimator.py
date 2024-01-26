@@ -7,21 +7,34 @@ from .utils import num_tokens_from_messages
 class CostEstimator:
     MODEL_SYNONYMS = {
         "gpt-4": "gpt-4-0613",
-        "gpt-3-turbo": "gpt-3.5-turbo-0613",
+        "gpt-3-turbo": "gpt-3.5-turbo-1106",
     }
 
     # Source: https://openai.com/pricing
     # Prices in $ per 1000 tokens
-    # Last updated: 2023-08-10
+    # Last updated: 2024-01-26
     PRICES = {
         "gpt-4-0613": {"input": 0.03, "output": 0.06},
         "gpt-3.5-turbo-0613": {"input": 0.0015, "output": 0.002},
+        "gpt-4-1106-preview": {"input": 0.01, "output": 0.03},
+        "gpt-4-1106-vision-preview": {"input": 0.01, "output": 0.03},
+        "gpt-4": {"input": 0.03, "output": 0.06},
+        "gpt-4-32k": {"input": 0.06, "output": 0.12},
+        "gpt-3.5-turbo-1106": {"input": 0.001, "output": 0.002},
+        "gpt-3.5-turbo-instruct": {"input": 0.0015, "output": 0.002},
+        "gpt-3.5-turbo-16k-0613": {"input": 0.003, "output": 0.004},
+        "whisper-1": {"input": 0.006, "output": 0.006},
+        "tts-1": {"input": 0.015, "output": 0.015},
+        "tts-hd-1": {"input": 0.03, "output": 0.03},
+        "text-embedding-ada-002-v2": {"input": 0.0001, "output": 0.0001},
+        "text-davinci:003": {"input": 0.02, "output": 0.02},
+        "text-ada-001": {"input": 0.0004, "output": 0.0004},
     }
 
     total_cost = 0.0  # class variable to persist total_cost
 
     def __init__(self) -> None:
-        self.default_model = "gpt-3.5-turbo-0613"
+        self.default_model = "gpt-3.5-turbo-1106"
 
     @classmethod
     def reset(cls) -> None:
