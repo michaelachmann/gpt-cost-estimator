@@ -7,7 +7,7 @@ from .utils import num_tokens_from_messages
 class CostEstimator:
     MODEL_SYNONYMS = {
         "gpt-4": "gpt-4-0613",
-        "gpt-3-turbo": "gpt-3.5-turbo-1106",
+        "gpt-3-turbo": "gpt-3.5-turbo-0125",
     }
 
     # Source: https://openai.com/pricing
@@ -16,10 +16,12 @@ class CostEstimator:
     PRICES = {
         "gpt-4-0613": {"input": 0.03, "output": 0.06},
         "gpt-3.5-turbo-0613": {"input": 0.0015, "output": 0.002},
+        "gpt-4-0125-preview": {"input": 0.01, "output": 0.03},
         "gpt-4-1106-preview": {"input": 0.01, "output": 0.03},
         "gpt-4-1106-vision-preview": {"input": 0.01, "output": 0.03},
         "gpt-4": {"input": 0.03, "output": 0.06},
         "gpt-4-32k": {"input": 0.06, "output": 0.12},
+        "gpt-3.5-turbo-0125": {"input": 0.0005, "output": 0.0015},
         "gpt-3.5-turbo-1106": {"input": 0.001, "output": 0.002},
         "gpt-3.5-turbo-instruct": {"input": 0.0015, "output": 0.002},
         "gpt-3.5-turbo-16k-0613": {"input": 0.003, "output": 0.004},
@@ -34,7 +36,7 @@ class CostEstimator:
     total_cost = 0.0  # class variable to persist total_cost
 
     def __init__(self) -> None:
-        self.default_model = "gpt-3.5-turbo-1106"
+        self.default_model = "gpt-3.5-turbo-0125"
 
     @classmethod
     def reset(cls) -> None:
