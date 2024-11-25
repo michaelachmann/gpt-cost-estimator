@@ -6,40 +6,63 @@ from .utils import num_tokens_from_messages
 
 class CostEstimator:
     MODEL_SYNONYMS = {
-        "gpt-4": "gpt-4-0613",
-        "gpt-3-turbo": "gpt-3.5-turbo-0125",
     }
 
     # Source: https://openai.com/pricing
     # Prices in $ per 1000 tokens
-    # Last updated: 2024-01-26
-    PRICES = {
-        "gpt-4-0613": {"input": 0.03, "output": 0.06},
-        "gpt-3.5-turbo-0613": {"input": 0.0015, "output": 0.002},
-        "gpt-4-0125-preview": {"input": 0.01, "output": 0.03},
-        "gpt-4-turbo-preview": {"input": 0.01, "output": 0.03},
-        "gpt-4-1106-preview": {"input": 0.01, "output": 0.03},
-        "gpt-4-1106-vision-preview": {"input": 0.01, "output": 0.03},
-        "gpt-4-turbo-2024-04-09": {"input": 0.01, "output": 0.03},
-        "gpt-4-turbo": {"input": 0.01, "output": 0.03},
-        "gpt-4": {"input": 0.03, "output": 0.06},
-        "gpt-4-32k": {"input": 0.06, "output": 0.12},
+    # Last updated: 2024-11-25
+    DEFAULT_PRICES = {
+        # GPT 3.5 Models
+        "gpt-3.5-turbo": {"input": 0.003, "output": 0.006},
         "gpt-3.5-turbo-0125": {"input": 0.0005, "output": 0.0015},
         "gpt-3.5-turbo-1106": {"input": 0.001, "output": 0.002},
         "gpt-3.5-turbo-instruct": {"input": 0.0015, "output": 0.002},
         "gpt-3.5-turbo-16k-0613": {"input": 0.003, "output": 0.004},
-        "whisper-1": {"input": 0.006, "output": 0.006},
-        "tts-1": {"input": 0.015, "output": 0.015},
-        "tts-hd-1": {"input": 0.03, "output": 0.03},
-        "text-embedding-ada-002-v2": {"input": 0.0001, "output": 0.0001},
-        "text-davinci:003": {"input": 0.02, "output": 0.02},
-        "text-ada-001": {"input": 0.0004, "output": 0.0004},
+        "gpt-3.5-turbo-0613": {"input": 0.0015, "output": 0.002},
+        # GPT 4 Models
+        "gpt-4-0613": {"input": 0.03, "output": 0.06},
+        "gpt-4-0125-preview": {"input": 0.01, "output": 0.03},
+        "gpt-4-turbo-preview": {"input": 0.01, "output": 0.03},
+        "gpt-4-1106-preview": {"input": 0.01, "output": 0.03},
+        "gpt-4-turbo-2024-04-09": {"input": 0.01, "output": 0.03},
+        "gpt-4-turbo": {"input": 0.01, "output": 0.03},
+        "gpt-4": {"input": 0.03, "output": 0.06},
+        "gpt-4-32k": {"input": 0.06, "output": 0.12},
+        # GPT-4o Pricing
+        "gpt-4o": {"input": 0.0025, "output": 0.01},
+        "gpt-4o-mini": {"input": 0.00015, "output": 0.0006},
+        "gpt-4o-mini-2024-07-18": {"input": 0.00015, "output": 0.0006},
+        "gpt-4o-2024-11-20": {"input": 0.0025, "output": 0.01},
+        "gpt-4o-2024-08-06": {"input": 0.0025, "output": 0.01},
+        "gpt-4o-audio-preview": {"input": 0.25, "output": 2.00},  # Audio mode pricing
+        "gpt-4o-realtime-preview": {"input": 0.005, "output": 0.02},
+        # O1 Models
+        "o1-preview": {"input": 0.015, "output": 0.06},
+        "o1-preview-2024-09-12": {"input": 0.015, "output": 0.06},
+        "o1-mini": {"input": 0.003, "output": 0.012},
+        "o1-mini-2024-09-12": {"input": 0.003, "output": 0.012},
+        # Embedding Models
+        "text-embedding-3-small": {"input": 0.00002, "output": 0.00002},
+        "text-embedding-3-large": {"input": 0.00013, "output": 0.00013},
+        "ada-v2": {"input": 0.0001, "output": 0.0001},
+        # Whisper and TTS
+        "whisper": {"input": 0.006, "output": 0.006},
+        "tts": {"input": 0.015, "output": 0.015},
+        "tts-hd": {"input": 0.03, "output": 0.03},
     }
 
     total_cost = 0.0  # class variable to persist total_cost
 
-    def __init__(self) -> None:
-        self.default_model = "gpt-3.5-turbo-0125"
+    def __init__(self, price_overrides=None) -> None:
+        """
+        Initialize the CostEstimator class.
+
+        :param price_overrides: Optional dictionary to override default prices.
+        """
+        self.default_model = "gpt-4o-mini"
+        # Apply price overrides if provided
+        self.PRICES = {**self.DEFAULT_PRICES, **(price_overrides or {})}
+
 
     @classmethod
     def reset(cls) -> None:

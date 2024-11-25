@@ -55,6 +55,33 @@ The CostEstimator class was designed to be used in Jupyter Notebooks, see the [e
     CostEstimator.get_total_cost()
     ```
 
+5. ** *NEW* Price Override**
+   ```python
+   from cost_estimator import CostEstimator
+   
+   # Define custom prices for models
+   custom_prices = {
+       "gpt-4o-mini": {"input": 0.0002, "output": 0.0007},
+   }
+   
+   # Instantiate the CostEstimator with custom prices
+   estimator = CostEstimator(price_overrides=custom_prices)
+   
+   # Use the estimator as usual
+   @estimator
+   def query_openai(model, messages, **kwargs):
+       args_to_remove = ['mock', 'completion_tokens']
+   
+       for arg in args_to_remove:
+         if arg in kwargs:
+             del kwargs[arg]
+   
+       return openai.ChatCompletion.create(
+           model = model,
+           messages = messages,
+           **kwargs)
+   ```
+
 ## 📌 Dependencies:
 
 - `tiktoken`: Used to determine the number of tokens in a string without making an API call.
@@ -89,6 +116,7 @@ The progress bar powered by `tqdm` provides instant feedback for every API call.
 
 ## Change Log:
 - 2024-01-26 Updated prices and added additional models.
+- 2024-11-25 Updated prices, added new models. Added price override. 
 
 ## 📜 License:
 
